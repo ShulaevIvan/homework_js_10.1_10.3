@@ -62,8 +62,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
     }else{
         counter = 0
     };
-
-    console.log(localStorage)
  
     for (let i = 0; i < storage.length; i++){
         if (!Number(storage[i])){
