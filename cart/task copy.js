@@ -2,7 +2,7 @@
 function createGood(quantity, img, goodId, good){
 
     let cart = document.querySelector('.cart__products')
-    let cartProducts = Array.from(cart.querySelectorAll('.cart__products .cart__product'))
+    let cartProducts = cart.querySelectorAll('.cart__products .cart__product')
     let idList = []
 
     let newGood = document.createElement('div')
@@ -12,14 +12,18 @@ function createGood(quantity, img, goodId, good){
                         <div class="cart__product-count">${quantity}</div>
                         </div>
                    `
+    cartProducts.forEach((item)=>{
+        idList.push(Number(item.dataset.id))
+    });
 
-    let check = cartProducts.find(item => item.dataset.id == goodId)
-
-    if (check != undefined && check.dataset.id == good.dataset.id){
-        let count = Number(good.querySelector('.cart__product-count'))
-        let tag = check.querySelector('.cart__product-count')
-        console.log(tag)
-        tag.textContent = Number(quantity) + Number(tag.textContent)
+    if (idList.includes(Number(good.dataset.id))){
+        cartProducts.forEach((product)=>{
+            if (product.dataset.id == goodId){
+                let count = Number(product.querySelector('.cart__product-count').textContent)
+                let tag = product.querySelector('.cart__product-count')
+                tag.textContent = count + quantity
+            };
+        });
     }
     else {
         cart.appendChild(newGood)
